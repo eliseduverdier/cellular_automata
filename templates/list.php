@@ -2,6 +2,9 @@
 <html>
     <head>
         <meta charset="utf-8">
+        <meta name="description" content="Cellular Automata Generator and List">
+        <meta name="author" content="Élise Duverdier">
+
         <title>Cellular Automata — 2 states — list</title>
         <link href="style.css" rel="stylesheet" type="text/css">
         <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -12,12 +15,13 @@
 <nav>
     <h1>elementary <br>cellular <br>automata</h1>
     <div>
-        <div><a href="display.html">2 states</a> <a href="list.php" active>(list)</a></div>
-        <div><a href="display_3states.php">3 states</a> <a href="list_3states.php">(list)</a></div>
-        <div><a href="display_4states.php">4 states</a> <a href="list_4states.php">(list)</a></div>
+        <div><a href="display.php">2 states</a> <a href="list.php" active>(list)</a></div>
+        <div><a href="display3.php">3 states</a> <a href="list3.php">(list)</a></div>
+        <div><a href="display4.php">4 states</a> <a href="list4.php">(list)</a></div>
     </div>
 </nav>
 
+<main>
 <h1>cellular automata — rules 0 to 255</h1>
 <?php /** Constants */
     $from = 0;
@@ -55,5 +59,6 @@ for ($i = $from; $i < $to; ++$i) {
         ';
 }
 ?>
+</main>
     </body>
 </html>

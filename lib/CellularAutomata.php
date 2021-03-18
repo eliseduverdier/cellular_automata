@@ -2,6 +2,7 @@
 
 /**
  * Cellular Automata Class.
+ * TODO remove all those static nonsense.
  */
 class CellularAutomata
 {
@@ -24,12 +25,18 @@ class CellularAutomata
     protected $matrix;
 
     /**
-     * Constructor.
+     * Cellular automata constructor.
      */
-    public function __construct()
+    public function __construct(int $states = 2, int $order = 1)
     {
-        $this->ruleNumber = Lib::whichRule(static::$states);
-        Lib::checkPossibleRules($this->ruleNumber, static::$states);
+        // TODO use $this
+        static::$states = $states;
+        static::$order = $order;
+
+        // TODO Parameters class, with ->get('') for each parameters
+        $lib = new Lib();
+
+        $this->ruleNumber = $lib->whichRule(static::$states);
         $this->ruleArray = Lib::ruleToArray($this->ruleNumber, static::$states);
 
         $size = Lib::getSize();
@@ -37,7 +44,7 @@ class CellularAutomata
         $this->generationsNb = $size['generationsNb'];
         $this->pixelLength = $size['pixelLength'];
 
-        // colors
+        // colors // TODO, instanciate only needed colors
         $this->theImage = imagecreatetruecolor($this->columns, $this->generationsNb);
         $this->theColor = Lib::decodeColor(Lib::getColor(), $this->theImage);
         $this->theBgColor = Lib::decodeColor(Lib::getBgColor(), $this->theImage);
@@ -96,7 +103,6 @@ class CellularAutomata
     /**
      *    Generate new array.
      *
-     * @param   {array} at 't'
      * @param mixed $currentCells
      *
      * @return array at 't+1'
@@ -112,7 +118,7 @@ class CellularAutomata
         return $newCells;
     }
 
-    /* /**
+    /* *
      * WIP --- Generate a new generation for the 2nd order
      * @param $currentLine {}
      * @param $position {}
@@ -193,6 +199,9 @@ class CellularAutomata
         imagepng($this->theImage);
     }
 
+    /**
+     * @param int $number the "index" of the number
+     */
     protected function getColorFromNumber(int $number)
     {
         switch ($number) {

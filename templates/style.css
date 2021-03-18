@@ -150,6 +150,7 @@ div.input-group {
     div.input-group {
         display:block;
     }
+    form {display:block;}
 }
 
 main {
@@ -161,7 +162,7 @@ footer {
     width: 100%;
     margin:0;
     padding: 12px;
-    position: absolute;
+    position: relative;
     bottom: 0;
     background-color: black;
     color: rgb(106, 236, 241);

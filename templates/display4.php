@@ -13,12 +13,12 @@
     <h1>elementary <br>cellular <br>automata</h1>
     <div>
         <div><a href="display.php">2 states</a> <a href="list.php">(list)</a></div>
-        <div><a href="display_3states.php">3 states</a> <a href="list_3states.php">(list)</a></div>
-        <div><a href="display_4states.php" active>4 states</a> <a href="list_4states.php">(list)</a></div>
+        <div><a href="display3.php">3 states</a> <a href="list3.php">(list)</a></div>
+        <div><a href="display4.php" active>4 states</a> <a href="list4.php">(list)</a></div>
     </div>
 </nav>
 
-<form class="display" action="../lib/img_4states.php" target="displayFrame" method="get">
+<form class="display" action="../lib/img4.php" target="displayFrame" method="get">
     <fieldset class="sizes">
         <fieldset>
             <label for="rule">rule #</label><input type="number" name="rule" id="rule" value="" min="0" max="500000" placeholder="N">
@@ -53,7 +53,7 @@
 </fieldset>
 </form>
 
-<iframe src="../lib/img_4states.php?random=on&width=50&height=50&pixel=5" height="500" name="displayFrame" border="0"></iframe>
+<iframe src="../lib/img4.php?random=on&width=50&height=50&pixel=5" height="500" name="displayFrame" border="0"></iframe>
 
 <footer>
     CC (BY SA) Élise Duverdier 2015

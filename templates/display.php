@@ -14,11 +14,12 @@
       <h1>elementary <br />cellular <br />automata</h1>
       <div>
         <div><a href="display.php" active>2 states</a> <a href="list.php">(list)</a></div>
-        <div><a href="display_3states.php">3 states</a> <a href="list_3states.php">(list)</a></div>
-        <div><a href="display_4states.php">4 states</a> <a href="list_4states.php">(list)</a></div>
+        <div><a href="display3.php">3 states</a> <a href="list3.php">(list)</a></div>
+        <div><a href="display4.php">4 states</a> <a href="list4.php">(list)</a></div>
       </div>
     </nav>
 
+    <main>
     <form class="display" action="../lib/img.php" target="displayFrame" method="get" >
       <fieldset class="sizes">
         <fieldset>
@@ -69,7 +70,8 @@
     </form>
 
     <iframe src="../lib/img.php?random=on&width=50&height=50&pixel=5" height="500" name="displayFrame"> </iframe>
-
+    </main>
+    
     <footer>
       <p>
         <!--((See (all (automata (from (random and (single point)) (start lines))))) here)-->

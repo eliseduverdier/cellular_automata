@@ -11,9 +11,6 @@ class Lib
     const COLOR_2 = '#aacc00';
     const COLOR_3 = '#0055cc';
 
-    /** @var int Maximum number of rules */
-    private static $maxRule;
-
     /**
      * Get parameters from $_GET.
      */
@@ -75,56 +72,31 @@ class Lib
         return $_GET['rule'] ?? null;
     }
 
-    public static function setMaxRules($states)
-    {
-        // TODO find the correct formula...?
-        switch ($states) {
-            case 2:
-                self::$maxRule = 256; // 2 ** $states ** 3
-                break;
-            case 3:
-                self::$maxRule = 52486;
-
-                break;
-            case 4:
-                self::$maxRule = 500000; // approx. 274875000000;
-
-                break;
-            default:
-                throw new Exception('Cannot process other states than 2, 3, 4');
-        }
-    }
-
-    /**
-     * Check if the rule number is in the bound.
-     *
-     * @param  {int} the rule
-     * @param  {int} the number of states of the automata
-     * @param mixed $rule
-     * @param mixed $states
-     *
-     * @throws {ErrorException}
-     */
-    public static function checkPossibleRules($rule, $states)
-    {
-        if (!is_null($rule) && $rule > self::$maxRule) {
-            throw new ErrorException('There is only '.self::$maxRule.' possible rules.', 1);
-        }
-    }
-
     /**
      * Returns a rule number, from the paramater or randomly.
      *
      * @param {int} the number of states
      * @param mixed $states
      */
-    public static function whichRule($states): int
+    public function whichRule($states): int
     {
-        self::setMaxRules($states);
+        $maxRule = $this->computeMaxRule($states);
+        //self::setMaxRules($states);
 
-        return null === self::getRuleNumber() || 0 == self::getRuleNumber()
-            ? rand(0, self::$maxRule)
-            : intval(self::getRuleNumber());
+        
+        if (false != self::getRandomRule() || 0 == self::getRuleNumber()) {
+            return rand(0, $maxRule);
+        }
+        $rule = intval(self::getRuleNumber());
+        if ($rule > $maxRule) {
+            throw new Exception(sprintf(
+                'Cannot use rule #%d (max: %d)',
+                $rule,
+                $maxRule
+            ));
+        }
+
+        return $rule;
     }
 
     /**
@@ -205,5 +177,24 @@ class Lib
         }
 
         throw new Exception('The color '.$color.' could not be decoded.');
+    }
+
+    protected function computeMaxRule($states)
+    {
+        // TODO find the correct formula...?
+        switch ($states) {
+            case 2:
+                return 256; // 2 ** $states ** 3
+            case 3:
+                return 52486;
+            case 4:
+                return 500000; // approx. 274875000000;
+            default:
+                throw new Exception(sprintf(
+                    'Cannot process other states than 2, 3, 4 (%s (%s) given)',
+                    $states,
+                    gettype($states)
+                ));
+        }
     }
 }

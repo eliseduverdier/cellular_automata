@@ -6,7 +6,7 @@
 require 'init.php';
 
 try {
-    $cellularAutomata = new GenericCellularAutomata(4);
+    $cellularAutomata = new CellularAutomata(3);
 } catch (Exception $e) {
     echo $e->getMessage();
 }

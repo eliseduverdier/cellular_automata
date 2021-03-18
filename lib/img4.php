@@ -1,12 +1,8 @@
 <?php
-
-/**
- *  Cellular Automata.
- */
 require 'init.php';
 
 try {
-    $cellularAutomata = new CA_3states();
+    $cellularAutomata = new CellularAutomata(4);
 } catch (Exception $e) {
     echo $e->getMessage();
 }

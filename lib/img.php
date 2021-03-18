@@ -6,7 +6,7 @@
 require 'init.php';
 
 try {
-    $cellularAutomata = new CA_2states();
+    $cellularAutomata = new CellularAutomata(2);
 } catch (Exception $e) {
     echo $e->getMessage();
 }
