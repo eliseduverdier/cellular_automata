@@ -4,9 +4,10 @@ Image generation of 2, 3, 4 states cellular automata.
 
 ## [Use here](http://eliseduverdier.fr/cellular_automata/)
 
-Parameters ([if used as an API](http://eliseduverdier.fr/cellular_automata/img/)):
-  * `rule`: The rule number ( {int, 0 → 256} or {0 → 134217728} for 3-states)
-  * `width` and `height`: Dimension in pixel of the image
+Parameters ([if used as an API](http://eliseduverdier.fr/cellular_automata/img.php)):
+  * `s`: The number of states
+  * `r`: The rule number or `random` ( {int, 0 → 256} or {0 → 134217728} for 3-states)
+  * `w` and `h`: Dimension in pixel of the image
   * `pixel`: Size in pixel of one square
   * `color`, `bgcolor`: Colors used for the states ({#nnnnnn (0-f) | rbg(n,n,n) (0-255)},
   * `color1`, `color2`: are also used for 3 and 4 states
