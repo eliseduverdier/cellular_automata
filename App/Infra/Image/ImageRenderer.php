@@ -1,8 +1,10 @@
 <?php
 
-namespace APP\UI;
+namespace App\Infra\Image;
 
-use App\Util\Color;
+use App\Domain\DrawableInterface;
+use App\Domain\RendererInterface;
+use App\Infra\Image\Color;
 
 class ImageRenderer implements RendererInterface
 {
@@ -19,10 +21,15 @@ class ImageRenderer implements RendererInterface
         [$width, $height] = $this->getSize($this->columns, $this->generationsNb, $pixelSize);
         $this->theImage = imagecreatetruecolor($width, $height);
 
+        // TODO define colors as array
         $this->theBgColor = (new Color())->decodeColor($colors[0], $this->theImage);
         $this->theColor1 = (new Color())->decodeColor($colors[1], $this->theImage);
-        $this->theColor2 = (new Color())->decodeColor($colors[2], $this->theImage);
-        $this->theColor3 = (new Color())->decodeColor($colors[3], $this->theImage);
+        $this->theColor2 = array_key_exists(2, $colors)
+            ? (new Color())->decodeColor($colors[2], $this->theImage)
+            : null;
+        $this->theColor3 = array_key_exists(3, $colors)
+            ? (new Color())->decodeColor($colors[3], $this->theImage)
+            : null;
     }
 
     /**
@@ -32,7 +39,6 @@ class ImageRenderer implements RendererInterface
      */
     public function render(DrawableInterface $automata)
     {
-        // generate
         $this->draw($automata->getMatrix());
 
         header('Content-Type: image/png');
@@ -76,7 +82,6 @@ class ImageRenderer implements RendererInterface
         }
     }
 
-
     /**
      * @param int $number the "index" of the number
      */
@@ -93,7 +98,6 @@ class ImageRenderer implements RendererInterface
                 return $this->theBgColor;
         }
     }
-
 
     /**
      * Returns the dimension of the final image, and the length of a pixel.

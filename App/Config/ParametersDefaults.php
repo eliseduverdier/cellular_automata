@@ -2,7 +2,7 @@
 
 namespace App\Config;
 
-class DefaultConfig
+class ParametersDefaults
 {
     const DEFAULT_STATES = 2;
     const DEFAULT_ORDER = 1;
@@ -14,7 +14,13 @@ class DefaultConfig
     const DEFAULT_PIXEL_SIZE = 3;
 
     const DEFAULT_BGCOLOR = '#FFFFFF';
-    const DEFAULT_COLOR1 = '#00B3FF';
-    const DEFAULT_COLOR2 = '#EACB06';
-    const DEFAULT_COLOR3 = '#A40404';
+    const DEFAULT_COLORS = [
+        '#000000',
+        '#AAFF00',
+        '#AA00FF',
+        '#FFAA00',
+        '#FF00AA',
+        '#00AAFF',
+        '#00FFAA',
+    ];
 }

@@ -1,6 +1,6 @@
 <?php
 
-namespace APP\UI;
+namespace App\Domain;
 
 interface RendererInterface
 {

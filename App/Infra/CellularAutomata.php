@@ -1,8 +1,9 @@
 <?php
 
-namespace APP;
+namespace App\Infra;
 
-use APP\UI\DrawableInterface;
+use App\Domain\DrawableInterface;
+use Exception;
 
 class CellularAutomata implements DrawableInterface
 {
@@ -34,7 +35,7 @@ class CellularAutomata implements DrawableInterface
         protected mixed $pixelSize = self::DEFAULT_PIXEL_SIZE,
 
     ) {
-        $this->states = $states;
+        $this->setStates($states);
         $this->order = $order;
         $this->hasRandomStart = $randomStart;
 
@@ -131,7 +132,17 @@ class CellularAutomata implements DrawableInterface
             case 3:
                 return 52486; // Should theorically be higher, but nothing interesting after that number
             case 4:
-                return 500000; // approx. 274875000000;
+                return 500000; // approx. 274875000000;        
+            case 5:
+                return 5000000; // approx. 274875000000;        
+            case 6:
+                return 50000000; // approx. 274875000000;        
+            case 7:
+                return 500000000; // approx. 274875000000;        
+            case 8:
+                return 5000000000; // approx. 274875000000;        
+            case 9:
+                return 50000000000; // approx. 274875000000;        
             default:
                 throw new \Exception(sprintf(
                     'Cannot process other states than 2, 3, 4 (%s given)',
@@ -208,5 +219,13 @@ class CellularAutomata implements DrawableInterface
     public function getRuleNumber(): int
     {
         return $this->ruleNumber;
+    }
+
+    public function setStates(?int $states): void
+    {
+        if ($states < 2 || $states > 10) {
+            throw new Exception("State must be between 2 and 10: $states");
+        }
+        $this->states = $states;
     }
 }

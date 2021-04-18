@@ -1,6 +1,6 @@
 <?php
 
-namespace APP\Util;
+namespace App\Infra\Image;
 
 class Color
 {

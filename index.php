@@ -2,7 +2,7 @@
 
 function my_autoload($className)
 {
-    $PROJECT_FOLDER = 'cellular_automata_refacto';
+    $PROJECT_FOLDER = 'cellular_automata';
     $className = str_replace("\\", DIRECTORY_SEPARATOR, $className);
     include implode('/', [
         $_SERVER['DOCUMENT_ROOT'],
@@ -27,4 +27,4 @@ function fatalHandler($errno, $errstr, $errfile, $errline)
 }
 set_error_handler('fatalHandler');
 
-new App\image();
+new App\UI\image();

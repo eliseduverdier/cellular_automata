@@ -1,11 +1,11 @@
 <?php
 
-namespace APP\UI;
+namespace App\Domain;
 
 interface DrawableInterface
 {
     /**
-     * Retudns the drawing as a two dimentional array
+     * Returns the drawing as a two dimentional array
      */
     public function getMatrix(): array;
 }
