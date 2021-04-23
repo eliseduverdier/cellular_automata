@@ -2,18 +2,19 @@
 
 namespace App\Util;
 
-use App\Config\ParametersDefaults;
+use App\Config\Defaults;
 
 class Parameters
 {
-    // Automata main data
+    // ------------------ Automata main data
     public function getStates(): int
     {
-        return $this->get('s') ?? $this->get('states', ParametersDefaults::DEFAULT_STATES);
+        return $this->get('s') ?? $this->get('states', Defaults::STATES);
     }
+
     public function getOrder(): int
     {
-        return $this->get('o') ?? $this->get('order', ParametersDefaults::DEFAULT_ORDER);
+        return $this->get('o') ?? $this->get('order', Defaults::ORDER);
     }
 
     /**
@@ -21,29 +22,30 @@ class Parameters
      */
     public function getRule()
     {
-        return $this->get('r') ?? $this->get('rule', ParametersDefaults::DEFAULT_RULE);
+        return $this->get('r') ?? $this->get('rule', Defaults::RULE);
     }
 
-    // Size
+    // ---------------- Size
     public function getWidth(): int
     {
-        return $this->get('w') ?? $this->get('width', ParametersDefaults::DEFAULT_WIDTH);
+        return $this->get('w') ?? $this->get('width', Defaults::WIDTH);
     }
     public function getHeight(): int
     {
-        return $this->get('h') ?? $this->get('height', ParametersDefaults::DEFAULT_HEIGHT);
+        return $this->get('h') ?? $this->get('height', Defaults::HEIGHT);
     }
     public function getPixelSize(): int
     {
-        return $this->get('p') ?? $this->get('pixel_size', ParametersDefaults::DEFAULT_PIXEL_SIZE);
+        return $this->get('p') ?? $this->get('pixel_size', Defaults::PIXEL_SIZE);
     }
 
+    // ---------------- Size
     /**
      * @return bool true for random start, false for centered single point
      */
     public function getRandomStart(): bool
     {
-        return (bool) $this->get('start', ParametersDefaults::DEFAULT_RANDOM_START);
+        return (bool) $this->get('start', Defaults::RANDOM_START);
     }
 
     /**
@@ -52,15 +54,10 @@ class Parameters
      */
     public function getColors(): array
     {
-        $colors = [
-            $this->get('bg') ?? $this->get('color0', ParametersDefaults::DEFAULT_BGCOLOR),
-        ];
-
-        $i = 0;
-        while ($i < $this->getStates()) {
-            $colors[] = $this->get("c$i") ?? $this->get("color$i", ParametersDefaults::DEFAULT_COLORS[$i]);
-            $i++;
+        for ($i = 0; $i < $this->getStates(); $i++) {
+            $colors[] = $this->get("c$i") ?? $this->get("color$i", Defaults::COLORS[$i]);
         }
+
         return $colors;
     }
 

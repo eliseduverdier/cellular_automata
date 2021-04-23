@@ -26,5 +26,3 @@ function fatalHandler($errno, $errstr, $errfile, $errline)
     );
 }
 set_error_handler('fatalHandler');
-
-new App\UI\image();

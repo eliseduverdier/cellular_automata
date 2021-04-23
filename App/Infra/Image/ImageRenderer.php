@@ -5,11 +5,15 @@ namespace App\Infra\Image;
 use App\Domain\DrawableInterface;
 use App\Domain\RendererInterface;
 use App\Infra\Image\Color;
+use App\Util\Debug;
 
 class ImageRenderer implements RendererInterface
 {
     /** @var resource The image */
-    protected $theImage;
+    private $image;
+
+    /** @var int[] The int corresponding to the color, relative to the resource image */
+    private $colors = [];
 
     public function __construct(
         protected int $columns,
@@ -18,33 +22,27 @@ class ImageRenderer implements RendererInterface
         protected int $ruleNumber,
         array $colors
     ) {
-        [$width, $height] = $this->getSize($this->columns, $this->generationsNb, $pixelSize);
-        $this->theImage = imagecreatetruecolor($width, $height);
+        $this->image = imagecreatetruecolor($this->columns, $this->generationsNb);
 
-        // TODO define colors as array
-        $this->theBgColor = (new Color())->decodeColor($colors[0], $this->theImage);
-        $this->theColor1 = (new Color())->decodeColor($colors[1], $this->theImage);
-        $this->theColor2 = array_key_exists(2, $colors)
-            ? (new Color())->decodeColor($colors[2], $this->theImage)
-            : null;
-        $this->theColor3 = array_key_exists(3, $colors)
-            ? (new Color())->decodeColor($colors[3], $this->theImage)
-            : null;
+        foreach ($colors as $color) {
+            array_push($this->colors, (new Color())->decodeColor($color, $this->image));
+        }
     }
 
     /**
      * Outputs the image as PNG
-     * with correct headers
-     * -> No cache to avoid getting same result with random rule
+     * with headers:
+     * -> "no-cache" to avoid getting same result with random rule
+     * -> "filename" filled with rule number
      */
-    public function render(DrawableInterface $automata)
+    public function render(DrawableInterface $automata): bool
     {
         $this->draw($automata->getMatrix());
 
         header('Content-Type: image/png');
         header('Cache-Control: no-cache');
         header('Content-Disposition: inline; filename="Rule' . $this->ruleNumber . '.png"');
-        imagepng($this->theImage);
+        return imagepng($this->image);
     }
 
     /**
@@ -52,7 +50,8 @@ class ImageRenderer implements RendererInterface
      */
     public function draw($matrix)
     {
-        imagefill($this->theImage, 0, 0, $this->theBgColor);
+        imagefill($this->image, 0, 0, $this->colors[0]);
+
         for ($line = 0; $line < count($matrix); ++$line) {
             for ($cell = 0; $cell < count($matrix[$line]); ++$cell) {
                 if (0 !== $matrix[$line][$cell]) {
@@ -62,7 +61,7 @@ class ImageRenderer implements RendererInterface
                     $y2 = $y1 + $this->pixelSize - 1;
                     if ($this->pixelSize > 1) {
                         imagefilledrectangle(
-                            $this->theImage,
+                            $this->image,
                             $x1,
                             $y1,
                             $x2,
@@ -71,7 +70,7 @@ class ImageRenderer implements RendererInterface
                         );
                     } else {
                         imagesetpixel(
-                            $this->theImage,
+                            $this->image,
                             $cell,
                             $line,
                             $this->getColorFromNumber($matrix[$line][$cell])
@@ -83,42 +82,10 @@ class ImageRenderer implements RendererInterface
     }
 
     /**
-     * @param int $number the "index" of the number
+     * @param int $number
      */
     protected function getColorFromNumber(int $number)
     {
-        switch ($number) {
-            case 1:
-                return $this->theColor1;
-            case 2:
-                return $this->theColor2;
-            case 3:
-                return $this->theColor3;
-            default:
-                return $this->theBgColor;
-        }
-    }
-
-    /**
-     * Returns the dimension of the final image, and the length of a pixel.
-     * @param int $width
-     * @param int $height
-     * @param int $pixelSize
-     * @return array column, generationsNb, pixelSize
-     */
-    protected function getSize($width, $height, $pixelSize)
-    {
-        if (intval($pixelSize) > 1) {
-            $pixelSize = intval($pixelSize);
-            $width *= $pixelSize;
-            $height *= $pixelSize;
-        } else {
-            $pixelSize = 1;
-        }
-
-        return [
-            $width,
-            $height,
-        ];
+        return $this->colors[$number];
     }
 }

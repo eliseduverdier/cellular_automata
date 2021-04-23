@@ -3,10 +3,10 @@
 namespace App\UI;
 
 use App\Infra\CellularAutomata;
-use App\Infra\Image\ImageRenderer;
+use App\Infra\Text\TextRenderer;
 use App\Util\Parameters;
 
-class Image
+class Text
 {
     public function __construct()
     {
@@ -14,13 +14,13 @@ class Image
     }
 
     /**
-     * Generates the cellular automata and display as an image
+     * Generates the cellular automata and display as an text block
      */
     public function display()
     {
         $parameters = new Parameters();
 
-        $cellularAutomata =  new CellularAutomata(
+        $cellularAutomata = new CellularAutomata(
             $parameters->getStates(),
             $parameters->getOrder(),
             $parameters->getRule(),
@@ -29,12 +29,8 @@ class Image
             $parameters->getHeight(),
             $parameters->getPixelSize()
         );
-        $renderer = new ImageRenderer(
-            $parameters->getWidth(),
-            $parameters->getHeight(),
-            $parameters->getPixelSize(),
+        $renderer = new TextRenderer(
             $cellularAutomata->getRuleNumber(),
-            $parameters->getColors()
         );
         return $renderer->render($cellularAutomata);
     }

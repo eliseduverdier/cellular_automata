@@ -7,14 +7,16 @@ namespace App\Util;
  */
 class Debug
 {
-    static public function print($var)
+    /**
+     * Echoes a variable or a list of variables
+     * @param mixed $var
+     */
+    static public function print(...$var)
     {
-        echo '<pre>';
-        if (is_array($var)) {
-            print_r($var);
-        } else {
-            echo $var . "\n";
+        foreach ($var as $v) {
+            echo '<pre style="background: black; color: white; padding: 5px; margin: 5px;">';
+            var_dump($v);
+            echo '</pre>';
         }
-        echo '</pre>';
     }
 }

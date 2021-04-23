@@ -2,20 +2,14 @@
 
 namespace App\Infra;
 
+use App\Config\Defaults;
 use App\Domain\DrawableInterface;
+use App\Util\Debug;
 use Exception;
+use Psr\Log\Test\DummyTest;
 
 class CellularAutomata implements DrawableInterface
 {
-    const DEFAULT_STATES = 2;
-    const DEFAULT_ORDER = 1;
-    const DEFAULT_RULE = 'random';
-    const DEFAULT_RANDOM_START = true;
-
-    const DEFAULT_WIDTH = 100;
-    const DEFAULT_HEIGHT = 100;
-    const DEFAULT_PIXEL_SIZE = 3;
-
     /** @var int */
     protected $generationsNb;
 
@@ -26,17 +20,16 @@ class CellularAutomata implements DrawableInterface
     protected $hasRandomStart;
 
     public function __construct(
-        protected mixed $states = self::DEFAULT_STATES,
-        protected mixed $order = self::DEFAULT_ORDER,
-        protected mixed $rule = self::DEFAULT_RULE,
-        protected mixed $randomStart = self::DEFAULT_RANDOM_START,
-        protected mixed $width = self::DEFAULT_WIDTH,
-        protected mixed $height = self::DEFAULT_HEIGHT,
-        protected mixed $pixelSize = self::DEFAULT_PIXEL_SIZE,
-
+        protected mixed $states = Defaults::STATES,
+        protected mixed $order = Defaults::ORDER,
+        protected mixed $rule = Defaults::RULE,
+        protected mixed $randomStart = Defaults::RANDOM_START,
+        protected mixed $width = Defaults::WIDTH,
+        protected mixed $height = Defaults::HEIGHT,
+        protected mixed $pixelSize = Defaults::PIXEL_SIZE,
     ) {
         $this->setStates($states);
-        $this->order = $order;
+        $this->setOrder($order);
         $this->hasRandomStart = $randomStart;
 
         $this->ruleNumber = $this->whichRule($rule);
@@ -55,11 +48,9 @@ class CellularAutomata implements DrawableInterface
     {
         $matrix = [$this->getFirstLine()];
         for ($line = 0; $line < $this->generationsNb; ++$line) {
-            array_push(
-                $matrix,
-                $this->computeNextLine($matrix[$line])
-            );
+            $matrix[] = $this->computeNextLine($matrix[$line]);
         }
+
         return $matrix;
     }
 
@@ -117,6 +108,7 @@ class CellularAutomata implements DrawableInterface
             $n = $currentLine[$position - 1] * 100 + $currentLine[$position] * 10 + $currentLine[$position + 1];
         }
         $index = base_convert($n, $this->states, 10);
+
         return $this->ruleArray[$index];
     }
 
@@ -125,53 +117,27 @@ class CellularAutomata implements DrawableInterface
 
     protected function computeMaxRule(int $states): int
     {
-        // TODO find the correct formula...
-        switch ($states) {
-            case 2:
-                return 256; // 2 ** $states ** 3
-            case 3:
-                return 52486; // Should theorically be higher, but nothing interesting after that number
-            case 4:
-                return 500000; // approx. 274875000000;        
-            case 5:
-                return 5000000; // approx. 274875000000;        
-            case 6:
-                return 50000000; // approx. 274875000000;        
-            case 7:
-                return 500000000; // approx. 274875000000;        
-            case 8:
-                return 5000000000; // approx. 274875000000;        
-            case 9:
-                return 50000000000; // approx. 274875000000;        
-            default:
-                throw new \Exception(sprintf(
-                    'Cannot process other states than 2, 3, 4 (%s given)',
-                    $states
-                ));
-        }
+        return (int) ((pow(pow($states, 3), 3)) / 2) - 1;
     }
 
     /**
-     * The index, when in bin[/trin]ary, will represent the state of the three current cells,
-     *  and the number (0/1[/2]), will represent the state of the resulting cell.
-     *
+     * The index, when in binary (or base3+), will represent the state of the three current cells,
+     *  and the number will represent the state of the resulting cell.
      * @param int $ruleNumber
-     *
      * @return array an "associative" array corresponding to the rule number
      */
-    protected function ruleToArray($ruleNumber): array
+    protected function ruleToArray(int $ruleNumber): array
     {
         // 3 cells with n possible states: n^3
-        $toBaseN = sprintf('%0' . pow($this->states, 3) + 1 . 'd', intval(base_convert($ruleNumber, 10, $this->states)));
+        $toBaseN = sprintf('%0' . pow($this->states, 3) + 1 . 's', base_convert($ruleNumber, 10, $this->states));
 
         return array_reverse(str_split(strval($toBaseN)));
     }
 
     /**
      * Returns a rule number, from the paramater or randomly.
-     *
-     * @param int the number of states
      * @param mixed $states
+     * @return int
      */
     protected function whichRule($rule): int
     {
@@ -199,12 +165,11 @@ class CellularAutomata implements DrawableInterface
      * @param int $pixelSize
      * @return array column, generationsNb, pixelSize
      */
-    protected function getSize(?int $columns, ?int $generationsNb, ?int $pixelSize): array
+    protected function getSize(int $columns, int $generationsNb, int $pixelSize): array
     {
         if (intval($pixelSize) > 1) {
             $pixelSize = intval($pixelSize);
-            $columns *= $pixelSize;
-            $generationsNb *= $pixelSize;
+            $generationsNb /= $pixelSize;
         } else {
             $pixelSize = 1;
         }
@@ -221,11 +186,19 @@ class CellularAutomata implements DrawableInterface
         return $this->ruleNumber;
     }
 
-    public function setStates(?int $states): void
+    private function setStates(?int $states): void
     {
         if ($states < 2 || $states > 10) {
-            throw new Exception("State must be between 2 and 10: $states");
+            throw new Exception("State must be between 2 and 10 (got $states)");
         }
         $this->states = $states;
+    }
+
+    private function setOrder(?int $order): void
+    {
+        if ($order !== 1) {
+            throw new Exception("Order can only be 1 (got $order)");
+        }
+        $this->order = $order;
     }
 }

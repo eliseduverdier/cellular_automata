@@ -1,14 +1,15 @@
 # Cellular automata
 
-Image generation of 2, 3, 4 states cellular automata.
+Image or text rendering of {2→9}-states cellular automata.
 
 ## [Use here](http://eliseduverdier.fr/cellular_automata/)
 
-` GET /cellular_automata/img.php ? s=2 & ...`
+* ` GET /cellular_automata/img.php  ? s=2 & ...`
+* ` GET /cellular_automata/text.php ? s=8 & ...`
 
 | parameter name | shortcut | does |
 |--------------|-------|---|
-| states       | s     | The number of states   |
+| states       | s     | The number of states (2 to 9)  |
 | order        | o     | The order (only `1` available for the moment) |
 | width        | w     | The width in pixels    |
 | height       | h     | The height in pixels   |
@@ -22,31 +23,20 @@ Image generation of 2, 3, 4 states cellular automata.
 
 All parameters are optional, default are defined for everything
 
-<img src="screenshots/v3.png" width="400px" title="Generator for the four–states automata">
+<img src="_design/screenshots/v3.png" width="300px" title="Generator for the four–states automata">
 
 ## The code
 That was my first personal project as a brand new developer :) The code was therefore very minimalist (if not plain dirty).
 
 I'm occasionaly trying to keep it in shape and adding new features.
 
+## Last changes ([see all](CHANGELOG.mg))
+### [3.2] - 2021-04-23
+- Added a text renderer
+- Optimize the defaults parameters management
+- Cleaned the computation in `CellularAutomata`
+
 ## Todo
-- Clean routes
+- Clean routes and templates
 - Add a 2nd order generator (using also the nth-1 line)
 - Clean the code, always
-
-## Changelog
-### [3.1] - 2021-03-10
-- Finished refacto: finally following SOLID principles
-- Now supporting any number of states (>2)
-
-### [3.0] - 2021-03-10
-- Another refactoring
-
-### [2.0] - 2016-10-20
-- Class refactoring
-
-### [1.1] - 2016-30-30
-- Added presentation page
-
-### [1.0] - 2016-30-20
-- Updated project.
