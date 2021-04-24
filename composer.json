@@ -1,0 +1,22 @@
+{
+    "name": "eliseduverdier/cellular-automata",
+    "description": "Cellular automata image|text generator, from 2+ states",
+    "type": "project",
+    "require": {
+        "php": ">=8.0"
+    },
+    "require-dev": {
+    },
+    "autoload": {
+        "psr-4": {
+            "App\\": "src"
+        }
+    },
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "Élise Duverdier",
+            "email": "elise.duverdier@gmail.com"
+        }
+    ]
+}

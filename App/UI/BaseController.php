@@ -11,7 +11,7 @@ class BaseController
     {
         try {
             return new $class();
-        } catch (\Exception $e) {
+        } catch (\Throwable $e) {
             http_response_code(500);
             header('Content-Type: application/json');
             echo json_encode(['error' => $e->getMessage()], 0, 1);

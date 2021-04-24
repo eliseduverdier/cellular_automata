@@ -2,6 +2,7 @@
 
 namespace App\Infra\Text;
 
+use Config\Defaults;
 use App\Domain\DrawableInterface;
 use App\Domain\RendererInterface;
 
@@ -14,27 +15,23 @@ class TextRenderer implements RendererInterface
             <meta charset="utf-8">
             <title>Cellular Automata — rule {{rule}}</title>
             <meta name="viewport" content="width=device-width, initial-scale=1">
+            <style>pre{line-height: .6em;}</style>
         </head>
         <body>{{content}}</body>
     </html>';
 
-    /** @var int[] The int corresponding to the color, relative to the resource image */
-    private $characters = ['◉', '◌', '✻', '❁', '❖', '▦', '░', '·', '▓'];
-
-    public function __construct(
-        protected int $ruleNumber,
-    ) {
+    public function __construct(protected int $ruleNumber)
+    {
     }
 
     /**
-     * Outputs the image as PNG
+     * Outputs the cellular automata as text
      * with headers:
      * -> "no-cache" to avoid getting same result with random rule
      * -> "filename" filled with rule number
      */
     public function render(DrawableInterface $automata): void
     {
-        //header('Content-Type: application/text');
         header('Cache-Control: no-cache');
         echo $this->draw($automata->getMatrix());
     }
@@ -42,7 +39,7 @@ class TextRenderer implements RendererInterface
     /**
      * Draws the image from the matrix background, and points.
      */
-    public function draw($matrix)
+    public function draw(array $matrix): string
     {
         $text = '<pre>';
         for ($line = 0; $line < count($matrix); ++$line) {
@@ -65,6 +62,6 @@ class TextRenderer implements RendererInterface
      */
     protected function getCharacterFromNumber(int $number)
     {
-        return $this->characters[$number];
+        return Defaults::CHARACTERS[$number];
     }
 }

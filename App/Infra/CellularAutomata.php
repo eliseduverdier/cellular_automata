@@ -2,13 +2,13 @@
 
 namespace App\Infra;
 
-use App\Config\Defaults;
+use Config\Defaults;
+use App\Domain\CellularAutomataInterface;
 use App\Domain\DrawableInterface;
 use App\Util\Debug;
 use Exception;
-use Psr\Log\Test\DummyTest;
 
-class CellularAutomata implements DrawableInterface
+class CellularAutomata implements DrawableInterface, CellularAutomataInterface
 {
     /** @var int */
     protected $generationsNb;

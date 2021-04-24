@@ -2,7 +2,7 @@
 
 namespace App\Util;
 
-use App\Config\Defaults;
+use Config\Defaults;
 
 class Parameters
 {

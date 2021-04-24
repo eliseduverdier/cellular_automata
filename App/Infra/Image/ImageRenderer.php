@@ -48,7 +48,7 @@ class ImageRenderer implements RendererInterface
     /**
      * Draws the image from the matrix background, and points.
      */
-    public function draw($matrix)
+    public function draw($matrix): void
     {
         imagefill($this->image, 0, 0, $this->colors[0]);
 
