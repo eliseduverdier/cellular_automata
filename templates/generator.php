@@ -15,16 +15,16 @@
     <?php include 'includes/nav.php' ?>
 
     <main>
-        <form class="display" action="../img.php" target="displayFrame" method="get">
+        <form class="display" id="display" method="get" action="">
             <fieldset class="sizes">
                 <fieldset>
                     <div class="input-group">
                         <label for="state">states</label>
-                        <input type="number" name="s" id="state" value="" min="2" max="9" placeholder="2" />
+                        <input type="number" name="s" id="states" size="3" value="2" min="2" max="9" placeholder="2" />
                     </div>
                     <div class="input-group">
                         <label for="rule">rule #</label>
-                        <input type="number" name="r" id="rule" value="" min="0" max="256" placeholder="N" />
+                        <input type="number" name="r" id="rule" size="3" value="" min="0" max="256" placeholder="N" />
                     </div>
                     <div class="input-group">
                         or <input type="checkbox" name="random" id="random" /><label for="random">random</label>
@@ -33,13 +33,13 @@
 
                 <fieldset>
                     <div class="input-group">
-                        <label for="width">width:</label> <input type="number" name="w" id="width" value="300" min="0" max="1000" placeholder="N" />
+                        <label for="width">width:</label> <input type="number" name="w" id="width" size="5" value="300" min="0" max="1000" placeholder="N" />
                     </div>
                     <div class="input-group">
-                        <label for="height">height:</label> <input type="number" name="h" id="height" value="300" min="0" max="1000" placeholder="N" />
+                        <label for="height">height:</label> <input type="number" name="h" id="height" size="5" value="300" min="0" max="1000" placeholder="N" />
                     </div>
                     <div class="input-group">
-                        <label for="scale">pixel:</label> <input type="number" name="p" id="scale" value="5" min="1" max="8" placeholder="N" />
+                        <label for="scale">pixel:</label> <input type="number" name="p" id="scale" size="3" value="5" min="1" max="8" placeholder="N" />
                     </div>
                 </fieldset>
 
@@ -48,18 +48,14 @@
                     <label for="randomstart"> single point on first line</label>
                 </fieldset>
             </fieldset>
-            <fieldset class="colors">
-                <fieldset>
-                    <div class="input-group">
-                        <label for="color0">color 1</label> <input type="color" name="c0" value="#000000" id="color0" />
-                        <br />
-                    </div>
-                    <div class="input-group">
-                        <label for="color1">color 2</label>
-                        <input type="color" name="c1" value="#ffffff" placeholder="#ffffff" id="color1" />
-                    </div>
-                </fieldset>
+
+            <fieldset id="colors">
+                <legend>colors</legend>
+                <input type="color" name="c0" value="#f5cb5c" id="color0" />
+                <input type="color" name="c1" value="#e8eddf" id="color1" />
+                <input type="color" id="color-template" hidden />
             </fieldset>
+
             <fieldset class="submit">
                 <fieldset>
                     <input class="submit" type="submit" value="Go !" />
@@ -68,19 +64,15 @@
             </fieldset>
         </form>
 
-        <iframe src="../img.php?s=2&w=300&h=300&p=5" height="500" name="displayFrame"> </iframe>
+        <section id="image"><img src="" /></section>
     </main>
 
     <?php include 'includes/footer.html' ?>
 
-    <script type="text/javascript">
-        document.querySelector('input[name="random"]').addEventListener("change", function() {
-            document.querySelector('label[for="rule"]').setAttribute(
-                'style',
-                'text-decoration: ' + (this.checked ? 'line-through' : 'none') + ';'
-            );
-        });
-    </script>
+    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="js/colorsInputs.js"></script>
+    <script type="text/javascript" src="js/ruleChooser.js"></script>
+    <script type="text/javascript" src="js/imageDisplay.js"></script>
 </body>
 
 </html>

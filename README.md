@@ -28,9 +28,12 @@ All parameters are optional, default are defined for everything
 ## The code
 That was my first personal project as a brand new developer :) The code was therefore very minimalist (if not plain dirty).
 
-I'm occasionaly trying to keep it in shape and adding new features.
+I'm occasionaly trying to keep it in shape and adding new features. The only rule is no external library.
 
 ## Last changes ([see all](CHANGELOG.mg))
+### [3.3] - 2021-05-04
+- Single page to generate all states, loaded in javascript
+
 ### [3.2] - 2021-04-23
 - Added a text renderer
 - Optimize the defaults parameters management

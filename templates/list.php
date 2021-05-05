@@ -14,14 +14,7 @@
 
 <body>
 
-    <nav>
-        <h1>elementary <br>cellular <br>automata</h1>
-        <div>
-            <div><a href="display.php">2 states</a> <a href="list.php" active>(list)</a></div>
-            <div><a href="display3.php">3 states</a> <a href="list3.php">(list)</a></div>
-            <div><a href="display4.php">4 states</a> <a href="list4.php">(list)</a></div>
-        </div>
-    </nav>
+    <?php include 'includes/nav.php' ?>
 
     <?php
     $states = (isset($_GET['s'])) ? (int) $_GET['s'] : 2;
@@ -41,7 +34,7 @@
         for ($i = $from; $i < $from + $to; ++$i) {
             echo "
         <div class=img>
-            <img src='../index.php?s=$states&r=$i&w=90&h=90&p=1'>
+            <img src='../img.php?s=$states&r=$i&w=90&h=90&p=1'>
             $i
         </div>
         ";
