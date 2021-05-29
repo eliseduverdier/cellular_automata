@@ -8,20 +8,11 @@ use App\Domain\RendererInterface;
 
 class TextRenderer implements RendererInterface
 {
-    // TODO create in resources and retreive from there
-    const BASIC_HTML_PAGE = '<!DOCTYPE html>
-    <html>
-        <head>
-            <meta charset="utf-8">
-            <title>Cellular Automata — rule {{rule}}</title>
-            <meta name="viewport" content="width=device-width, initial-scale=1">
-            <style>pre{line-height: .6em;}</style>
-        </head>
-        <body>{{content}}</body>
-    </html>';
+    private $ruleNumber;
 
-    public function __construct(protected int $ruleNumber)
+    public function __construct(int $ruleNumber)
     {
+        $this->ruleNumber = $ruleNumber;
     }
 
     /**
@@ -53,7 +44,7 @@ class TextRenderer implements RendererInterface
         return str_replace(
             ['{{content}}', '{{rule}}'],
             [$text, $this->ruleNumber],
-            self::BASIC_HTML_PAGE
+            $this->getHtmlBase()
         );
     }
 
@@ -63,5 +54,10 @@ class TextRenderer implements RendererInterface
     protected function getCharacterFromNumber(int $number)
     {
         return Defaults::CHARACTERS[$number];
+    }
+
+    private function getHtmlBase(): string
+    {
+        return file_get_contents(dirname(__DIR__, 3) . '/templates/base.html');
     }
 }

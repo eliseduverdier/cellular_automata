@@ -20,13 +20,13 @@ class CellularAutomata implements DrawableInterface, CellularAutomataInterface
     protected $hasRandomStart;
 
     public function __construct(
-        protected mixed $states = Defaults::STATES,
-        protected mixed $order = Defaults::ORDER,
-        protected mixed $rule = Defaults::RULE,
-        protected mixed $randomStart = Defaults::RANDOM_START,
-        protected mixed $width = Defaults::WIDTH,
-        protected mixed $height = Defaults::HEIGHT,
-        protected mixed $pixelSize = Defaults::PIXEL_SIZE,
+        int $states = Defaults::STATES,
+        int $order = Defaults::ORDER,
+        $rule = Defaults::RULE,
+        $randomStart = Defaults::RANDOM_START,
+        int $width = Defaults::WIDTH,
+        int $height = Defaults::HEIGHT,
+        int $pixelSize = Defaults::PIXEL_SIZE,
     ) {
         $this->setStates($states);
         $this->setOrder($order);
@@ -65,6 +65,7 @@ class CellularAutomata implements DrawableInterface, CellularAutomataInterface
             if ($this->hasRandomStart) {
                 array_push($cells, rand(0, $this->states - 1));
             } else {
+                // TODO
                 $middle = intval(($this->columns / $this->pixelSize) / 2);
                 array_push($cells, ($i === $middle ? 1 : 0));
             }

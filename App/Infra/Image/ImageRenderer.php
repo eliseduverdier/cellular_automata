@@ -9,23 +9,30 @@ use App\Util\Debug;
 
 class ImageRenderer implements RendererInterface
 {
-    /** @var resource The image */
+    /** @var \GdImage The image */
     private $image;
 
     /** @var int[] The int corresponding to the color, relative to the resource image */
     private $colors = [];
 
+    /** int */
+    private $pixelSize;
+    /** int */
+    private $ruleNumber;
+
     public function __construct(
-        protected int $columns,
-        protected int $generationsNb,
-        protected int $pixelSize,
-        protected int $ruleNumber,
+        int $columns,
+        int $generationsNb,
+        int $pixelSize,
+        int $ruleNumber,
         array $colors
     ) {
-        $this->image = imagecreatetruecolor($this->columns, $this->generationsNb);
+        $this->image = imagecreatetruecolor($columns, $generationsNb);
+        $this->pixelSize = $pixelSize;
+        $this->ruleNumber = $ruleNumber;
 
         foreach ($colors as $color) {
-            array_push($this->colors, (new Color())->decodeColor($color, $this->image));
+            $this->colors[] = (new Color($color))->allocate($this->image);
         }
     }
 
@@ -83,6 +90,7 @@ class ImageRenderer implements RendererInterface
 
     /**
      * @param int $number
+     * @return int
      */
     protected function getColorFromNumber(int $number)
     {

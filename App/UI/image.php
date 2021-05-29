@@ -4,6 +4,7 @@ namespace App\UI;
 
 use App\Infra\CellularAutomata;
 use App\Infra\Image\ImageRenderer;
+use App\Util\Debug;
 use App\Util\Parameters;
 
 class Image
@@ -36,6 +37,7 @@ class Image
             $cellularAutomata->getRuleNumber(),
             $parameters->getColors()
         );
+
         return $renderer->render($cellularAutomata);
     }
 }

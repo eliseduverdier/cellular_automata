@@ -32,6 +32,7 @@ class Text
         $renderer = new TextRenderer(
             $cellularAutomata->getRuleNumber(),
         );
+
         return $renderer->render($cellularAutomata);
     }
 }
