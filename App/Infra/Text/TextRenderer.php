@@ -8,11 +8,8 @@ use App\Domain\RendererInterface;
 
 class TextRenderer implements RendererInterface
 {
-    private $ruleNumber;
-
-    public function __construct(int $ruleNumber)
+    public function __construct(private int $ruleNumber)
     {
-        $this->ruleNumber = $ruleNumber;
     }
 
     /**

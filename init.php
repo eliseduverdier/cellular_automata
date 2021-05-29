@@ -12,17 +12,17 @@ function my_autoload($className)
 }
 spl_autoload_register('my_autoload');
 
-function fatalHandler($errno, $errstr, $errfile, $errline)
+/**
+ * Rudimentary debug method
+ */
+function dump(...$var): void
 {
-    header('Content-Type: application/json');
-    echo json_encode(
-        [
-            'error' => [
-                'code' => $errno,
-                'message' => $errstr,
-                'file' => "$errfile:$errline",
-            ]
-        ]
-    );
+    foreach ($var as $v) {
+        echo '<div style="font: normal 10px monospace; background: black; color: white; padding: 5px; margin: 5px;">';
+        echo "<span style='color: red;'>in {$_SERVER['SCRIPT_NAME']}: </span>";
+        echo '<pre>';
+        var_dump($v);
+        echo '</pre>';
+        echo '</div>';
+    }
 }
-set_error_handler('fatalHandler');

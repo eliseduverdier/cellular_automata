@@ -5,32 +5,27 @@ namespace App\Infra;
 use Config\Defaults;
 use App\Domain\CellularAutomataInterface;
 use App\Domain\DrawableInterface;
-use App\Util\Debug;
 use Exception;
 
 class CellularAutomata implements DrawableInterface, CellularAutomataInterface
 {
-    /** @var int */
-    protected $generationsNb;
-
-    /** @var int */
-    protected $ruleNumber;
-
-    /** @var bool */
-    protected $hasRandomStart;
+    private $generationsNb;
+    private $ruleNumber;
+    private $ruleArray;
+    private $columns;
+    private $pixelSize;
 
     public function __construct(
         int $states = Defaults::STATES,
         int $order = Defaults::ORDER,
         $rule = Defaults::RULE,
-        $randomStart = Defaults::RANDOM_START,
+        private bool $hasRandomStart = Defaults::RANDOM_START,
         int $width = Defaults::WIDTH,
         int $height = Defaults::HEIGHT,
         int $pixelSize = Defaults::PIXEL_SIZE,
     ) {
         $this->setStates($states);
         $this->setOrder($order);
-        $this->hasRandomStart = $randomStart;
 
         $this->ruleNumber = $this->whichRule($rule);
         $this->ruleArray = $this->ruleToArray($this->ruleNumber, $this->states);

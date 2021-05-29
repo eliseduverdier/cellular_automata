@@ -12,25 +12,18 @@ class ImageRenderer implements RendererInterface
     /** @var \GdImage The image */
     private $image;
 
-    /** @var int[] The int corresponding to the color, relative to the resource image */
-    private $colors = [];
-
-    /** int */
-    private $pixelSize;
-    /** int */
-    private $ruleNumber;
-
     public function __construct(
         int $columns,
         int $generationsNb,
-        int $pixelSize,
-        int $ruleNumber,
-        array $colors
+        private int $pixelSize,
+        private int $ruleNumber,
+        private array $colors
     ) {
         $this->image = imagecreatetruecolor($columns, $generationsNb);
         $this->pixelSize = $pixelSize;
         $this->ruleNumber = $ruleNumber;
 
+        $this->colors = [];
         foreach ($colors as $color) {
             $this->colors[] = (new Color($color))->allocate($this->image);
         }
