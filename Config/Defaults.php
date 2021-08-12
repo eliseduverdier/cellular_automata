@@ -9,8 +9,8 @@ class Defaults
 {
     const STATES = 2;
     const ORDER = 1;
-    const RULE = 'random';
-    const RANDOM_START = true;
+    const RULE = null;
+    const RANDOM_START = false;
 
     const WIDTH = 300;
     const HEIGHT = 300;

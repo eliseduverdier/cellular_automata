@@ -26,26 +26,30 @@ class Parameters
     }
 
     // ---------------- Size
+
     public function getWidth(): int
     {
         return $this->get('w') ?? $this->get('width', Defaults::WIDTH);
     }
+
     public function getHeight(): int
     {
         return $this->get('h') ?? $this->get('height', Defaults::HEIGHT);
     }
+
     public function getPixelSize(): int
     {
         return $this->get('p') ?? $this->get('pixel_size', Defaults::PIXEL_SIZE);
     }
 
-    // ---------------- Size
+    // ---------------- Appearance
+
     /**
-     * @return bool true for random start, false for centered single point
+     * @return bool true (s=1|on) for random start, false (s=0|null) for centered single point
      */
     public function getRandomStart(): bool
     {
-        return (bool) $this->get('start', Defaults::RANDOM_START);
+        return !empty($this->get('start'));
     }
 
     /**

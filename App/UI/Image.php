@@ -21,7 +21,7 @@ class Image
     {
         $parameters = new Parameters();
 
-        $cellularAutomata =  new CellularAutomata(
+        $cellularAutomata = new CellularAutomata(
             $parameters->getStates(),
             $parameters->getOrder(),
             $parameters->getRule(),

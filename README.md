@@ -23,7 +23,10 @@ Image or text rendering of {2→9}-states cellular automata.
 
 All parameters are optional, default are defined for everything
 
-<img src="_design/screenshots/v3.png" width="300px" title="Generator for the four–states automata">
+<img src="_design/screenshots/v3.png" width="300" title="Generator for the four–states automata">
+
+## How to use locally
+From the folder, launch `php -S localhost:1234` and go to that url. Needs PHP8 (WIP: will run on docker later)
 
 ## The code
 That was my first personal project as a brand new developer :) The code was therefore very minimalist (if not plain dirty).

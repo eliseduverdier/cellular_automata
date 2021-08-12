@@ -14,19 +14,21 @@ class CellularAutomata implements DrawableInterface, CellularAutomataInterface
     private $ruleArray;
     private $columns;
     private $pixelSize;
+    private $hasRandomStart;
 
     public function __construct(
-        int $states = Defaults::STATES,
-        int $order = Defaults::ORDER,
-        $rule = Defaults::RULE,
-        private bool $hasRandomStart = Defaults::RANDOM_START,
-        int $width = Defaults::WIDTH,
-        int $height = Defaults::HEIGHT,
-        int $pixelSize = Defaults::PIXEL_SIZE,
+        int $states,
+        int $order,
+        ?int $rule,
+        bool $hasRandomStart,
+        int $width,
+        int $height,
+        int $pixelSize,
     ) {
         $this->setStates($states);
         $this->setOrder($order);
 
+        $this->hasRandomStart = $hasRandomStart;
         $this->ruleNumber = $this->whichRule($rule);
         $this->ruleArray = $this->ruleToArray($this->ruleNumber, $this->states);
 
@@ -55,14 +57,20 @@ class CellularAutomata implements DrawableInterface, CellularAutomataInterface
      */
     protected function getFirstLine(): array
     {
-        $cells = [];
-        for ($i = 0; $i < ($this->columns / $this->pixelSize); ++$i) {
-            if ($this->hasRandomStart) {
+        $totalColumns = $this->columns / $this->pixelSize;
+        if ($this->hasRandomStart) {
+            $cells = [];
+            for ($i = 0; $i < $totalColumns; ++$i) {
                 array_push($cells, rand(0, $this->states - 1));
-            } else {
-                // TODO
-                $middle = intval(($this->columns / $this->pixelSize) / 2);
-                array_push($cells, ($i === $middle ? 1 : 0));
+            }
+        } else {
+            $cells = array_fill(0, $totalColumns, 0);
+            // Fill intermediates colors like this [0001234321000]
+            for ($i = 0; $i < $this->states ; $i++) {
+                $offset = $i - 1;
+                $middle = intval($totalColumns / 2);
+                $cells[$middle + $offset] = $i;
+                $cells[$middle - $offset] = $i; // sorry for assigning twice the middle dot, but keeping for clarity
             }
         }
 
