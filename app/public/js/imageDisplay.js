@@ -5,12 +5,13 @@
     console.log(' >>> Generating image ')
 
     let parameters = {
+        o: Ʊ('input[name="o"]') ? Ʊ('input[name="o"]').value : 2,
         s: Ʊ('input[name="s"]') ? Ʊ('input[name="s"]').value : 2,
-        r: Ʊ('input[name="rule"]') ? Ʊ('input[name="rule"]').value : 'random',
+        r: Ʊ('input[name="r"]') ? Ʊ('input[name="r"]').value : '',
         w: Ʊ('input[name="w"]') ? Ʊ('input[name="w"]').value : 300,
         h: Ʊ('input[name="h"]') ? Ʊ('input[name="h"]').value : 300,
         p: Ʊ('input[name="p"]') ? Ʊ('input[name="p"]').value : 3,
-        start: Ʊ('input[name="start"]') ? Ʊ('input[name="start"]').value : 0,
+        start: Ʊ('input[name="start"]').checked ? 1 : 0,
         c0: Ʊ('input[name="c0"]') ? Ʊ('input[name="c0"]').value : '',
         c1: Ʊ('input[name="c1"]') ? Ʊ('input[name="c1"]').value : '',
         c2: Ʊ('input[name="c2"]') ? Ʊ('input[name="c2"]').value : '',
@@ -23,7 +24,7 @@
         c9: Ʊ('input[name="c9"]') ? Ʊ('input[name="c9"]').value : '',
     }
     
-    search = ''
+    let search = ''
     for (const prop in parameters) {
         if (parameters[prop]) {
             search += prop+'='+encodeURIComponent(parameters[prop])+'&'

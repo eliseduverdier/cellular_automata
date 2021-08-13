@@ -17,7 +17,6 @@ body {
 input {
     font: normal 1em 'Space Mono', monospace;
     color: black;
-    margin: .5em;
     background: transparent;
     border: 0;
     /* border-bottom: 3px black solid; */

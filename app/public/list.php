@@ -9,7 +9,7 @@
     <title>Cellular Automata — 2 states — list</title>
     <link href="style.css" rel="stylesheet" type="text/css">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <link rel="icon" type="image/png" href="/data/img/icons/favicon.png">
+    <link rel="icon" type="image/png" href="img/favicon.png" />
 </head>
 
 <body>
@@ -18,19 +18,22 @@
 
     <?php
     $states = (isset($_GET['s'])) ? (int) $_GET['s'] : 2;
-    $start = (isset($_GET['start'])) ? (int) $_GET['start'] : 0;
+    $from = (isset($_GET['start'])) ? (int) $_GET['start'] : 0;
     $order = (isset($_GET['o'])) ? (int) $_GET['o'] : 1;
     $randomStart = (isset($_GET['rs'])) ? (int) $_GET['rs'] : 0;
+    $to = $states === 2 && $order === 1 ? 256 : 1000;
     ?>
 
     <main>
         <h1>cellular automata — <?= $states ?> states — order <?= $order ?></h1>
-        <?php /** Constants */
-        $from = $start;
-        $to = $states === 2 ? 256 : 1000;
-        ?>
 
-        <h2>start from random line (<?= $start ?> → <?= $from + $to ?>)</h2>
+        <h2>start from random line (<?= $from ?> → <?= $from + $to ?>)</h2>
+
+        <p> Also try
+            <a href="?o=<?= $order===1?2:1 ?>">Order <?= $order===1?2:1 ?></a>,
+            <a href="?rs=<?= $randomStart===1?0:1 ?>"><?= $randomStart?'single point first line':'random first line' ?></a>,
+            <a href="?s=<?= $states+1 ?>">N+1 states</a>,
+        </p>
 
         <?php
         for ($i = $from; $i < $from + $to; ++$i) {

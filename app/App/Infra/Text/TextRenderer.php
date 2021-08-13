@@ -8,8 +8,10 @@ use App\Domain\RendererInterface;
 
 class TextRenderer implements RendererInterface
 {
-    public function __construct(private int $ruleNumber)
+    private $ruleNumber;
+    public function __construct(int $ruleNumber)
     {
+        $this->ruleNumber = $ruleNumber;
     }
 
     /**
@@ -55,6 +57,6 @@ class TextRenderer implements RendererInterface
 
     private function getHtmlBase(): string
     {
-        return file_get_contents(dirname(__DIR__, 3) . '/templates/base.html');
+        return file_get_contents(dirname(__DIR__, 3) . '/public/base.html');
     }
 }
