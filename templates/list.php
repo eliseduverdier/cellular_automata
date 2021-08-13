@@ -19,10 +19,12 @@
     <?php
     $states = (isset($_GET['s'])) ? (int) $_GET['s'] : 2;
     $start = (isset($_GET['start'])) ? (int) $_GET['start'] : 0;
+    $order = (isset($_GET['o'])) ? (int) $_GET['o'] : 1;
+    $randomStart = (isset($_GET['rs'])) ? (int) $_GET['rs'] : 0;
     ?>
 
     <main>
-        <h1>cellular automata — <?= $states ?> states</h1>
+        <h1>cellular automata — <?= $states ?> states — order <?= $order ?></h1>
         <?php /** Constants */
         $from = $start;
         $to = $states === 2 ? 256 : 1000;
@@ -34,7 +36,7 @@
         for ($i = $from; $i < $from + $to; ++$i) {
             echo "
         <div class=img>
-            <img src='../img.php?s=$states&r=$i&w=90&h=90&p=1'>
+            <img src='../img.php?s=$states&r=$i&w=90&h=90&p=1&o=$order&start=$randomStart'>
             $i
         </div>
         ";

@@ -11,7 +11,7 @@ class Color
         $this->color = $this->decode($color);
     }
 
-    public function allocate(\GdImage $image): int
+    public function allocate($image): int
     {
         return imagecolorallocate(
             $image,

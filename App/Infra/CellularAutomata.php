@@ -3,6 +3,7 @@
 namespace App\Infra;
 
 use Config\Defaults;
+use App\Util\Debug;
 use App\Domain\CellularAutomataInterface;
 use App\Domain\DrawableInterface;
 use Exception;
@@ -23,7 +24,7 @@ class CellularAutomata implements DrawableInterface, CellularAutomataInterface
         bool $hasRandomStart,
         int $width,
         int $height,
-        int $pixelSize,
+        int $pixelSize
     ) {
         $this->setStates($states);
         $this->setOrder($order);
@@ -45,7 +46,7 @@ class CellularAutomata implements DrawableInterface, CellularAutomataInterface
     {
         $matrix = [$this->getFirstLine()];
         for ($line = 0; $line < $this->generationsNb; ++$line) {
-            $matrix[] = $this->computeNextLine($matrix[$line]);
+            $matrix[] = $this->computeNextLine($matrix, $line);
         }
 
         return $matrix;
@@ -82,38 +83,64 @@ class CellularAutomata implements DrawableInterface, CellularAutomataInterface
      * @param array $currentCells
      * @return array at 't+1'
      */
-    protected function computeNextLine($currentLine): array
+    protected function computeNextLine($matrix, $currentLine): array
     {
-        $newCells = [];
-        for ($i = 0; $i < count($currentLine); ++$i) {
-            $newcellvalue = $this->newCell($currentLine, $i);
-            $newCells[] = $newcellvalue;
+        $lineLength = count($matrix[$currentLine]);
+        $newLine = [];
+        for ($i = 0; $i < $lineLength; ++$i) {
+            if ($this->order === 2 && $currentLine > 1) {
+                $newcellvalue = $this->newCell($matrix[$currentLine], $i, $matrix[$currentLine - 1]);
+            } else {
+                $newcellvalue = $this->newCell($matrix[$currentLine], $i);
+            }
+            $newLine[] = $newcellvalue;
         }
 
-        return $newCells;
+        return $newLine;
     }
     /**
      * Calculate the state of a new cell according to the parent cell and its neighbours.
      *
-     * @param $currentLine {array}: current state of the cells
-     * @param $position    {int}: index of the array, 0 < i < a.length
+     * @param array  $currentLine   Current state of the cells
+     * @param int    $position      Index of the array, 0 < i < a.length
+     * @param ?array $lineBefore    For order 2, the line before if it exists
      *
-     * @return int 0|1  or  0|1|2
+     * @return int Between 0..states-1
      */
-    protected function newCell($currentLine, $position): int
+    protected function newCell($currentLine, $position, $lineBefore = null): int
     {
-        // 1st order: 1 line
         $len = count($currentLine);
-        if (0 === $position) { // first
-            $n = $currentLine[$len - 1] * 100 + $currentLine[0] * 10 + $currentLine[1];
-        } elseif ($position === $len - 1) { // last
-            $n = $currentLine[$position - 1] * 100 + $currentLine[$position] * 10 + $currentLine[0];
-        } else {
-            $n = $currentLine[$position - 1] * 100 + $currentLine[$position] * 10 + $currentLine[$position + 1];
-        }
-        $index = base_convert($n, $this->states, 10);
 
-        return $this->ruleArray[$index];
+        if (0 === $position) { // first
+            $baseCells = [
+                $currentLine[$len - 1] * 100,
+                $currentLine[0] * 10,
+                $currentLine[1]
+            ];
+        } elseif ($position === $len - 1) { // last
+            $baseCells = [
+                $currentLine[$position - 1] * 100,
+                $currentLine[$position] * 10,
+                $currentLine[0]
+            ];
+        } else {
+            $baseCells = [
+                $currentLine[$position - 1] * 100,
+                $currentLine[$position] * 10,
+                $currentLine[$position + 1]
+            ];
+        }
+
+        if ($lineBefore) { // 2nd order: also add center cell from n-2 line
+            // get x cells      . x .
+            // to compute #     x x x
+            //                  . # .
+            $baseCells[] = $lineBefore[$position];
+
+        }
+        $index = base_convert(array_sum($baseCells), $this->states, 10);
+
+        return (int) $this->ruleArray[$index];
     }
 
 
@@ -132,8 +159,12 @@ class CellularAutomata implements DrawableInterface, CellularAutomataInterface
      */
     protected function ruleToArray(int $ruleNumber): array
     {
-        // 3 cells with n possible states: n^3
-        $toBaseN = sprintf('%0' . pow($this->states, 3) + 1 . 's', base_convert($ruleNumber, 10, $this->states));
+        $nbOfCellsToComputeNewOne = $this->order === 2
+            ? pow($this->states, 3) + 1
+            : pow($this->states, 4) + 1;
+
+        // 3 cells with n possible states: n^3 + 1
+        $toBaseN = sprintf('%0' . $nbOfCellsToComputeNewOne . 's', base_convert($ruleNumber, 10, $this->states));
 
         return array_reverse(str_split(strval($toBaseN)));
     }
@@ -200,8 +231,8 @@ class CellularAutomata implements DrawableInterface, CellularAutomataInterface
 
     private function setOrder(?int $order): void
     {
-        if ($order !== 1) {
-            throw new Exception("Order can only be 1 (got $order)");
+        if ($order < 1 || $order > 2) {
+            throw new Exception("Order can only be 1 or 2 (got $order)");
         }
         $this->order = $order;
     }
