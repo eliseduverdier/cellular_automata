@@ -7,7 +7,7 @@
     <link href="../../data/lib/reset.css" rel="stylesheet" type="text/css" />
     <link href="style.css" rel="stylesheet" type="text/css" />
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
-    <link rel="icon" type="image/png" href="/data/img/icons/favicon.png" />
+    <link rel="icon" type="image/png" href="img/favicon.png" />
 </head>
 
 <body>
@@ -19,12 +19,20 @@
             <fieldset class="sizes">
                 <fieldset>
                     <div class="input-group">
-                        <label for="state">states</label>
-                        <input type="number" name="s" id="states" size="3" value="2" min="2" max="9" placeholder="2" />
+                        <label for="state">orders</label>
+                        <input type="number" name="o" id="orders" size="5" value="1" min="1" max="2" placeholder="1" />
                     </div>
+                    |
+                    <div class="input-group">
+                        <label for="state">states</label>
+                        <input type="number" name="s" id="states" size="5" value="2" min="2" max="9" placeholder="2" />
+                    </div>
+                </fieldset>
+
+                <fieldset>
                     <div class="input-group">
                         <label for="rule">rule #</label>
-                        <input type="number" name="r" id="rule" size="3" value="" min="0" max="256" placeholder="N" />
+                        <input type="number" name="r" id="rule" size="5" value="" min="0" max="256" placeholder="N" />
                     </div>
                     <div class="input-group">
                         or <input type="checkbox" name="random" id="random" /><label for="random">random</label>
@@ -39,13 +47,13 @@
                         <label for="height">height:</label> <input type="number" name="h" id="height" size="5" value="300" min="0" max="1000" placeholder="N" />
                     </div>
                     <div class="input-group">
-                        <label for="scale">pixel:</label> <input type="number" name="p" id="scale" size="3" value="5" min="1" max="8" placeholder="N" />
+                        <label for="scale">pixel:</label> <input type="number" name="p" id="scale" size="5" value="5" min="1" max="8" placeholder="N" />
                     </div>
                 </fieldset>
 
                 <fieldset>
-                    <input type="checkbox" name="start" id="randomstart" />
-                    <label for="randomstart"> single point on first line</label>
+                    <input type="checkbox" name="start" id="randomstart" checked />
+                    <label for="randomstart"> random first line</label>
                 </fieldset>
             </fieldset>
 

@@ -5,9 +5,9 @@ namespace App\UI;
 class BaseController
 {
     /**
-     * @param Image|Text $class the App\UI\class that will render the content
+     * @param string $class (Image|Text) $class the App\UI\class that will render the content
      */
-    public function __construct($class)
+    public function __construct(string $class)
     {
         try {
             return new $class();
@@ -20,8 +20,6 @@ class BaseController
                     'file' => "{$e->getFile()}:{$e->getLine()}",
                 ]
             ]);
-
-            return;
         }
     }
 }

@@ -15,9 +15,9 @@ class ImageRenderer implements RendererInterface
     public function __construct(
         int $columns,
         int $generationsNb,
-        private int $pixelSize,
-        private int $ruleNumber,
-        private array $colors
+         int $pixelSize,
+         int $ruleNumber,
+         array $colors
     ) {
         $this->image = imagecreatetruecolor($columns, $generationsNb);
         $this->pixelSize = $pixelSize;

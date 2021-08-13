@@ -20,9 +20,11 @@ class Parameters
     /**
      * @return int|string The rule number or 'random'
      */
-    public function getRule()
+    public function getRule(): ?int
     {
-        return $this->get('r') ?? $this->get('rule', Defaults::RULE);
+        $rule = $this->get('r') ?? $this->get('rule');
+
+        return is_numeric($rule) ? $rule : null;
     }
 
     // ---------------- Size

@@ -30,7 +30,7 @@ class Text
             $parameters->getPixelSize()
         );
         $renderer = new TextRenderer(
-            $cellularAutomata->getRuleNumber(),
+            $cellularAutomata->getRuleNumber()
         );
 
         return $renderer->render($cellularAutomata);

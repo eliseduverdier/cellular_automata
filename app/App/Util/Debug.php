@@ -11,9 +11,11 @@ class Debug
     static public function print(...$var): void
     {
         foreach ($var as $v) {
-            echo '<pre style="background: black; color: white; padding: 5px; margin: 5px;">';
-            var_dump($v);
-            echo '</pre>';
+            echo str_replace(
+                ['{{file}}', '{{var}}'],
+                [$_SERVER['SCRIPT_NAME'], var_export($v, true)],
+                file_get_contents(dirname(__DIR__, 2) . '/public/debug.html')
+            );
         }
     }
 }
