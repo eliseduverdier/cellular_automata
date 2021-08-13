@@ -1,5 +1,6 @@
 {
     "name": "eliseduverdier/cellular-automata",
+    "version": "4.0",
     "description": "Cellular automata image|text generator, from 2+ states",
     "type": "project",
     "require": {
@@ -9,7 +10,7 @@
     },
     "autoload": {
         "psr-4": {
-            "App\\": "src"
+            "App\\": ""
         }
     },
     "license": "MIT",

@@ -2,7 +2,7 @@
 
 Image or text rendering of {2→9}-states cellular automata.
 
-## [Use here](http://eliseduverdier.fr/cellular_automata/)
+## [Use here](https://eliseduverdier.fr/cellular_automata/app/public/generator.php)
 
 * ` GET /cellular_automata/img.php  ? s=2 & ...`
 * ` GET /cellular_automata/text.php ? s=8 & ...`
@@ -10,7 +10,7 @@ Image or text rendering of {2→9}-states cellular automata.
 | parameter name | shortcut | does |
 |--------------|-------|---|
 | states       | s     | The number of states (2 to 9)  |
-| order        | o     | The order (only `1` available for the moment) |
+| order        | o     | The order (`1` or `2`) |
 | width        | w     | The width in pixels    |
 | height       | h     | The height in pixels   |
 | pixel_size   | p     | A cell size in pixels  |
@@ -33,7 +33,14 @@ That was my first personal project as a brand new developer :) The code was ther
 
 I'm occasionaly trying to keep it in shape and adding new features. The only rule is no external library.
 
+## TODO
+- [] Add docker
+- [] Add tests
+
 ## Last changes ([see all](CHANGELOG.mg))
+### [4.0] - 2021-08-13
+- Added second order + some refactos
+
 ### [3.3] - 2021-05-04
 - Single page to generate all states, loaded in javascript
 
