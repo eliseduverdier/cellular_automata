@@ -2,7 +2,7 @@
 
 Image or text rendering of {2→9}-states cellular automata.
 
-## [Use here](https://eliseduverdier.fr/cellular_automata/app/public/generator.php)
+## [Use here](https://eliseduverdier.fr/cellular_automata/)
 
 * ` GET /cellular_automata/img.php  ? s=2 & ...`
 * ` GET /cellular_automata/text.php ? s=8 & ...`
@@ -59,11 +59,11 @@ I'm occasionaly trying to keep it in shape and adding new features. The only rul
 **2 states**
 
 <img src="_design/automata/order1/s2-Rule101.png" height=200 title="Rule 110"> <img src="_design/automata/order1/s2-Rule110.png" height=200 title="Rule 110"> <img src="_design/automata/order1/s2-Rule18.png" height=200 title="Rule 18"> <img src="_design/automata/order1/s2-Rule210.png" height=200 title="Rule 210"> <img src="_design/automata/order1/s2-Rule73.png" height=200 title="Rule 73">
- 
+
 **3 states**
 
 <img src="_design/automata/order1/s3-Rule2059a.png" height=200 title="Rule 2059a"> <img src="_design/automata/order1/s3-Rule2059b.png" height=200 title="Rule 2059b"> <img src="_design/automata/order1/s3-Rule2059.png" height=200 title="Rule 2059"> <img src="_design/automata/order1/s3-Rule4480.png" height=200 title="Rule 4480"> <img src="_design/automata/order1/s3-Rule5404.png" height=200 title="Rule 5404"> <img src="_design/automata/order1/s3-Rule5465.png" height=200 title="Rule 5465"> <img src="_design/automata/order1/s3-Rule910.png" height=200 title="Rule 910">
- 
+
 **5 states**
 
 <img src="_design/automata/order1/s5-Rule161727.png" height=200 title="Rule 161727">
