@@ -1,17 +1,27 @@
 <?php
 
+
 function my_autoload($className)
 {
-    $PROJECT_FOLDER =$_SERVER['SERVER_NAME'] === 'localhost' // TODO env variables for prod|dev
-       ? ''
-       : 'cellular_automata';
-
     $className = str_replace("\\", DIRECTORY_SEPARATOR, $className);
-    include implode('/', [
-        $_SERVER['DOCUMENT_ROOT'],
-        $PROJECT_FOLDER,
+    $path = implode('/', [
+        isFromCLI() ? dirname($_SERVER['PWD']) : $_SERVER['DOCUMENT_ROOT'],
+        isLocalHost() ? '' : 'cellular_automata',
         'app',
         $className . '.php'
     ]);
+    include $path;
 }
 spl_autoload_register('my_autoload');
+
+
+function isLocalHost(): bool
+{
+    // todo getenv('ENV') === 'dev'
+    return isset($_SERVER['SERVER_NAME']) && $_SERVER['SERVER_NAME'] === 'localhost';
+}
+
+function isFromCLI()
+{
+    return php_sapi_name() === 'cli';
+}
