@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Cellular Automata generator</title>
+    <link href="css/style_v4.css" rel="stylesheet" type="text/css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1" />
+    <link rel="icon" type="image/png" href="img/favicon.png" />
+    <script type="application/ld+json">
+        {
+            "@context": "http://schema.org",
+            "@type": "Website",
+            "name": "Cellular automata image|text generator, from 2+ states, order 1 or 2",
+            "url": "https://www.eliseduverdier.fr/cellular_automata",
+        }
+        </script>
+</head>
+
+<body>
+
+    <main>
+        <form class="display" id="display" method="get" action="../img.php">
+            <span class="text-form">i want a <span class="title">cellular automata</span>
+
+            </span><br><span class="text-form">
+                with <input type="number" name="s" id="states" size="1" value="2" min="2" max="9" placeholder="2" />
+                <label for="state">states</label>,
+                of <label for="state">order</label>
+                <input type="number" name="o" id="orders" size="1" value="1" min="1" max="2" placeholder="1" />
+
+            </span><br><span class="text-form">
+                <label for="rule">with rule</label>
+                <input type="number" name="r" id="rule" size="2" value="" min="0" placeholder="#" />
+                or <input type="checkbox" name="random" id="random" /><label for="random">random</label>
+
+            </span><br><span class="text-form">
+                of size <input type="number" name="w" id="width" size="2" value="300" min="0" max="1000" placeholder="N" />
+                ×
+                <input type="number" name="h" id="height" size="2" value="300" min="0" max="1000" placeholder="N" />,
+
+            </span><br><span class="text-form">
+                dots of <input type="number" name="p" id="scale" size="2" value="2" min="1" max="20" placeholder="N" />px
+
+            </span><br><span class="text-form">
+                <input type="checkbox" name="start" id="randomstart" checked /> <label for="randomstart">starting with random points</label>
+
+            </span><br><span class="text-form">
+                and with colors <input type="color" name="c0" value="#00A171" id="color0" />
+                <input type="color" name="c1" value="#e8eddf" id="color1" />
+                <input type="color" id="color-template" hidden />
+            </span>
+
+            <input class="submit" type="submit" value="↠ show me ↯" />
+        </form>
+
+        <section id="image"><img src="" /></section>
+    </main>
+
+    <nav id="about">
+
+        <p class="content">CC BY SA / Élise Duverdier / 2021
+            <br>
+            See the code on <a href="https://github.com/eliseduverdier/cellular_automata">github</a>
+            <br>
+            Credits for the font <a href="https://velvetyne.fr/fonts/karrik/">Karrik</a>
+        </p>
+        about
+
+    </nav>
+
+    <script type="text/javascript" src="js/init.js"></script>
+    <script type="text/javascript" src="js/colorsInputs.js"></script>
+    <script type="text/javascript" src="js/ruleChooser.js"></script>
+    <script type="text/javascript" src="js/imageDisplay.js"></script>
+</body>
+
+</html>

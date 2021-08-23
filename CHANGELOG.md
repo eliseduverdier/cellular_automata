@@ -1,5 +1,9 @@
 # Changelog
 
+### [4.1] - 2021-08-22
+
+- Add custom tests
+
 ### [4.0] - 2021-08-13
 
 - Added second order + some refactos

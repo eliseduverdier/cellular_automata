@@ -25,7 +25,7 @@ All parameters are optional, default are defined for everything
 
 ### The App
 
-<img src="_design/screenshots/v3.png" width="300" title="Generator for the four–states automata">
+<img src="_design/screenshots/v4.png" width="400" title="Generator for the four–states automata">
 
 ## How to use locally
 
@@ -51,9 +51,9 @@ I'm occasionaly trying to keep it in shape and adding new features. _The only ru
 
 ## Last changes ([see all](CHANGELOG.mg))
 
-### [4.1] - 2021-08-22
+### [4.2] - 2021-08-23
 
-- Add custom tests
+- New UI
 
 # Images
 

@@ -1,0 +1,154 @@
+/* VAR */
+:root {
+  --dark: #555;
+  --accent: rgba(145, 255, 0, 1);
+}
+
+@font-face {
+  font-family: "Karrik";
+  src: url("../fonts/Karrik-Regular.woff2");
+  font-weight: normal;
+  font-style: normal;
+  line-height: 0.8em;
+}
+
+/* STYLE */
+body {
+  margin-left: 0.5vw;
+  background-color: white;
+  color: var(--dark);
+  font: normal 5vw "Karrik";
+}
+@media (min-width: 600px) {
+  body {
+    font-size: 3vw; /* half screen size in desktop */
+    margin-left: 50px;
+  }
+}
+@media (max-width: 600px) {
+  body {
+    font-size: 6vw; /* full screen size in mobile */
+    margin-left: 20px;
+  }
+}
+
+span.title {
+  transform: translate(-3px, -3px);
+  font-weight: 100;
+  color: rgb(223, 223, 3);
+  text-shadow: 1px 1px 0px rgb(1, 230, 1), 2px 2px 0px rgb(22, 214, 214),
+    3px 3px 0px rgb(3, 158, 230), 4px 4px 0px rgb(141, 8, 236),
+    5px 5px 0px rgb(240, 4, 240), 6px 6px 0px rgb(228, 66, 7);
+}
+/* Set image as background (commented because quite ugly, but has some potential)
+.text-form {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+ section#image {
+  position: fixed;
+  z-index: -1;
+  bottom: 50px;
+  right: 50px;
+} */
+
+#about {
+  font-size: 14px;
+  position: fixed;
+  right: 20px;
+  bottom: 20px;
+  position: absolute;
+  text-align: right;
+}
+#about .content {
+  display: none;
+  padding: 10px;
+  border: 2px solid rgb(223, 223, 3);
+  box-shadow: -1px -1px 0px rgb(1, 230, 1), -2px -2px 0px rgb(22, 214, 214),
+    -3px -3px 0px rgb(3, 158, 230), -4px -4px 0px rgb(141, 8, 236),
+    -5px -5px 0px rgb(240, 4, 240), -6px -6px 0px rgb(228, 66, 7);
+}
+a {
+  color: var(--accent);
+  text-decoration: none;
+}
+a:hover {
+  color: var(--dark);
+}
+
+#about:hover .content {
+  display: block;
+}
+
+/*    INPUTS      */
+/*    ---reset      */
+input {
+  background: transparent;
+  appearance: none;
+  -moz-appearance: none;
+  -webkit-appearance: none;
+  border: 0;
+}
+input:focus {
+  outline: none;
+}
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+input::-webkit-color-swatch-wrapper,
+input::-webkit-color-swatch {
+  border: none;
+  outline: none;
+  padding: 0;
+  margin: 0;
+}
+/*    ---style      */
+input {
+  font: normal 1em "Karrik", monospace;
+  color: var(--accent);
+}
+input[type="submit"],
+input[type="reset"] {
+  font-weight: bold;
+  text-align: center;
+  cursor: pointer;
+}
+input[type="checkbox"] {
+  margin: 0 0.3em;
+  width: 15px;
+  height: 15px;
+  border: 3px var(--dark) solid;
+  vertical-align: middle;
+}
+
+input[type="checkbox"] {
+  display: none;
+}
+input[type="checkbox"]:checked + label {
+  color: var(--dark);
+}
+input[type="checkbox"]:checked + label::before {
+  content: "✔︎ ";
+}
+input[type="checkbox"]:not(:checked) + label::before {
+  content: "";
+}
+input[type="checkbox"]:not(:checked) + label {
+  text-decoration: line-through;
+}
+input[type="checkbox"]:checked {
+  background: gray;
+}
+input[type="color"] {
+  width: 20px;
+  height: 20px;
+  padding: 0 !important;
+  margin: 5px;
+  border: 2px var(--dark) solid;
+  outline: none;
+}

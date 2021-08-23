@@ -1,7 +1,7 @@
 // --------------------------------------
-//       display image on submit
+//       display image on startup and submit
 // --------------------------------------
-Ʊ('form[id="display"]').addEventListener("submit", function(e) {
+function displayImage(e) {
     console.log(' >>> Generating image ')
 
     let parameters = {
@@ -10,7 +10,7 @@
         r: Ʊ('input[name="r"]') ? Ʊ('input[name="r"]').value : '',
         w: Ʊ('input[name="w"]') ? Ʊ('input[name="w"]').value : 300,
         h: Ʊ('input[name="h"]') ? Ʊ('input[name="h"]').value : 300,
-        p: Ʊ('input[name="p"]') ? Ʊ('input[name="p"]').value : 3,
+        p: Ʊ('input[name="p"]') ? Ʊ('input[name="p"]').value : 2,
         start: Ʊ('input[name="start"]').checked ? 1 : 0,
         c0: Ʊ('input[name="c0"]') ? Ʊ('input[name="c0"]').value : '',
         c1: Ʊ('input[name="c1"]') ? Ʊ('input[name="c1"]').value : '',
@@ -23,18 +23,20 @@
         c8: Ʊ('input[name="c8"]') ? Ʊ('input[name="c8"]').value : '',
         c9: Ʊ('input[name="c9"]') ? Ʊ('input[name="c9"]').value : '',
     }
-    
+
     let search = ''
     for (const prop in parameters) {
         if (parameters[prop]) {
-            search += prop+'='+encodeURIComponent(parameters[prop])+'&'
+            search += prop + '=' + encodeURIComponent(parameters[prop]) + '&'
         }
     }
 
     let img = new Image()
-    img.src = '../img.php?'+search+'_t='+new Date().getTime()
+    img.src = Ʊ('form').action + '?' + search + '_t=' + new Date().getTime()
     Ʊ('section#image').replaceChild(img, Ʊ('section#image img'));
- console.log(img.src);
 
-    e.preventDefault();
-});
+    if (e) e.preventDefault();
+}
+
+displayImage();
+Ʊ('form[id="display"]').addEventListener("submit", function (e) { displayImage(e) });
